@@ -1,3 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.api-select-button {
+  padding-right: 50px;
+  align-self: center;
+}
+
 .message-box {
   display: block;
   margin-bottom: 10px;

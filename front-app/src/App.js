@@ -1,48 +1,67 @@
 import "./App.css";
 
 import React, { useState, useEffect } from "react";
+import { post } from "axios";
 
 function App() {
-  const [ws, setWs] = useState(null);
+  // const [ws, setWs] = useState(null);
   const [messageBox, setMessageBox] = useState("");
   const [messages, setMessages] = useState("");
+  const [apiState, setApiState] = useState(4001);
 
-  useEffect(() => {
-    const ws = new WebSocket("ws://localhost:5000");
+  // WS Connection
+  // useEffect(() => {
+  //   const ws = new WebSocket("ws://localhost:5000");
 
-    ws.onopen = function (event) {
-      const data = {
-        message: "Hello, WebSockets!",
-      };
-      ws.send(JSON.stringify(data));
-    };
+  //   ws.onopen = function (event) {
+  //     const data = {
+  //       message: "Hello, WebSockets!",
+  //     };
+  //     ws.send(JSON.stringify(data));
+  //   };
 
-    ws.onclose = function (event) {
-      console.log("WebSocket closed with code: " + event.code);
-    };
+  //   ws.onclose = function (event) {
+  //     console.log("WebSocket closed with code: " + event.code);
+  //   };
 
-    setWs(ws);
-  }, []);
+  //   setWs(ws);
+  // }, []);
 
   function showMessage(message) {
     setMessages((prevMessages) => `${prevMessages}\n\n${message}`);
   }
 
   function handleSendClick() {
-    if (!ws) {
-      showMessage("No WebSocket connection :(");
-      console.log("AAAA");
-      return;
-    }
+    // it is too
+    // if (!ws) {
+    //   showMessage("No WebSocket connection :(");
+    //   return;
+    // }
 
-    ws.send(messageBox);
+    // ws.send(messageBox);
+    post(`http://localhost:${apiState}/messages`, { message: messageBox });
     showMessage(messageBox);
     setMessageBox("");
   }
 
   return (
     <div>
-      <h1>Real Time Messaging To Socket</h1>
+      <div className="header">
+        <h1>Real Time Messaging To Socket</h1>
+        <div className="api-select-button">
+          <label>Choose an API: </label>
+          <select
+            name="apis"
+            onClick={(e) => {
+              setApiState(e.target.value);
+            }}
+          >
+            <option value="4001">api-1</option>
+            <option value="4002">api-2</option>
+            <option value="4003">api-3</option>
+          </select>
+        </div>
+      </div>
       <pre className="messages">{messages}</pre>
       <input
         className="message-box"
@@ -62,24 +81,3 @@ function App() {
 }
 
 export default App;
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
