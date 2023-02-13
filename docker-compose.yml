@@ -28,4 +28,13 @@ services:
     volumes:
       - ./api-1:/api-1
     depends_on:
-    - kafka
+      - kafka
+  socket:
+    container_name: socket
+    build: ./socket
+    ports:
+      - 5000:5000
+    volumes:
+      - ./socket:/socket
+    depends_on:
+      - kafka

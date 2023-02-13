@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "socket",
+      "script": "./server.js",
+      "autorestart": true,
+      "watch": true,
+      "watch_options": {
+        "usePolling": true
+      },
+      "env": {
+        "PORT": 5000
+      }
+    }
+  ]
+}
