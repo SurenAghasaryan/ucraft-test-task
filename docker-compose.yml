@@ -29,6 +29,24 @@ services:
       - ./api-1:/api-1
     depends_on:
       - kafka
+  api-2:
+    container_name: api-2
+    build: ./api-2
+    ports:
+      - 4002:4002
+    volumes:
+      - ./api-2:/api-2
+    depends_on:
+      - kafka
+  api-3:
+    container_name: api-3
+    build: ./api-3
+    ports:
+      - 4003:4003
+    volumes:
+      - ./api-3:/api-3
+    depends_on:
+      - kafka
   socket:
     container_name: socket
     build: ./socket

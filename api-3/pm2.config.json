@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "api-3",
+      "script": "./server.js",
+      "autorestart": true,
+      "watch": true,
+      "watch_options": {
+        "usePolling": true
+      },
+      "env": {
+        "PORT": 4003
+      }
+    }
+  ]
+}
